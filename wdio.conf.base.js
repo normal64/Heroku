@@ -28,15 +28,7 @@ const config = {
 
   reporters: [
     "spec",
-    [
-      "mochawesome",
-      {
-        outputDir: "./reports",
-        outputFileFormat: function (opts) {
-          return `results-${opts.cid}.${opts.capabilities}.json`;
-        },
-      },
-    ],
+   
   ],
 
   mochaOpts: {

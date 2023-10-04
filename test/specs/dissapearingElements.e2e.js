@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+// import { expect } from 'chai';
+import { expect as expectChai } from 'chai'
 
 describe("php travels cases", () => {
 it("element dissapear check", async () => {
@@ -7,7 +8,8 @@ it("element dissapear check", async () => {
     await galleryElement.waitForDisplayed()
     const isDisplayed = await galleryElement.isDisplayed()
     console.log(`isDisplayed`, isDisplayed);
-    await expect(isDisplayed).to.be.true;
+     await expectChai(isDisplayed).to.be.true;
+    //await isDisplayed.isEqual(true)
     browser.saveScreenshot('screenshotName.png');
 });
 });
