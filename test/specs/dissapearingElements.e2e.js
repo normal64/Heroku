@@ -1,15 +1,26 @@
-// import { expect } from 'chai';
-import { expect as expectChai } from 'chai'
+import Page from "../pageobjects/dissapearing.elements.page.js";
 
-describe("php travels cases", () => {
-it("element dissapear check", async () => {
-    browser.url('https://the-internet.herokuapp.com/disappearing_elements');
-    const galleryElement = await $('//*[@id="content"]/div/ul/li[5]/a')
-    await galleryElement.waitForDisplayed()
-    const isDisplayed = await galleryElement.isDisplayed()
-    console.log(`isDisplayed`, isDisplayed);
-     await expectChai(isDisplayed).to.be.true;
-    //await isDisplayed.isEqual(true)
-    browser.saveScreenshot('screenshotName.png');
-});
+describe("dissapearing elements tests", () => {
+  const dissapearingElementsPage = new Page();
+  beforeEach(() => {
+    dissapearingElementsPage.open();
+  });
+
+  it("should check that element dissapear on refresh", async () => {
+    let state = await dissapearingElementsPage.checkIfElementPresentinitially(
+      '//*[@id="content"]/div/ul/li[5]/a'
+    );
+    console.log(`state`, state);
+    if (state === true) {
+      console.log("Cool");
+    } else {
+      console.log("browser should refresh");
+      await browser.refresh();
+      let stateAfterRefresh =
+        await dissapearingElementsPage.checkIfElementPresentinitially(
+          '//*[@id="content"]/div/ul/li[5]/a'
+        );
+      await expect(stateAfterRefresh).toBe(true);
+    }
+  });
 });
